@@ -1,6 +1,6 @@
 package team.sensivity.teamsensivityapi.Controller;
 
-import net.vse.dev.restapi.service.TokenService;
+import team.sensivity.teamsensivityapi.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -19,7 +19,7 @@ public class AuthController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping("/token/{token}{id}")
+    @PostMapping("/admin/token/{token}{id}")
     public String token(@PathVariable String id, @PathVariable String token, Authentication authentication){
 
         String token1 = "";
@@ -33,7 +33,7 @@ public class AuthController {
         return token1;
     }
 
-    @PostMapping("/token/old")
+    @PostMapping("/admin/token/old")
     public String token(Authentication authentication){
         LOG.debug("Token request for user: '{}'", authentication.getName());
         String token = tokenService.generateToken(authentication);

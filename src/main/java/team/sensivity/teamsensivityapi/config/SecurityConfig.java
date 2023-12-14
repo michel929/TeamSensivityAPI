@@ -42,7 +42,7 @@ public class SecurityConfig {
                 User.withUsername("michel929")
                         .password("{noop}" + AdminPassword.adminPassword)
                         .authorities("read")
-                        .roles("ADMIN")
+                        .roles("ADMIN", "DEV")
                         .build()
         );
     }
@@ -52,6 +52,8 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
+                        .requestMatchers("/admin").hasAuthority("SCOPE_ROLE_ADMIN")
+                        .requestMatchers("/points").hasAnyAuthority("SCOPE_ROLE_DEV", "SCOPE_ROLE_VERIFIED")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
