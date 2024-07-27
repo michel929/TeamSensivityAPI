@@ -2,15 +2,17 @@ package team.sensivity.teamsensivityapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import team.sensivity.teamsensivityapi.config.RsaKeyProperties;
+import team.sensivity.teamsensivityapi.timers.EveryMinute;
 
-@EnableConfigurationProperties(RsaKeyProperties.class)
+import java.util.Timer;
+
 @SpringBootApplication
+
 public class TeamSensivityApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TeamSensivityApiApplication.class, args);
+		new Timer().schedule(new EveryMinute(), 0, 1000 * 60);
 	}
 
 }
