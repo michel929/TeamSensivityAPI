@@ -1,9 +1,6 @@
 package team.sensivity.teamsensivityapi.mysql;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Points {
     public static int getPoints(String id){
@@ -28,11 +25,58 @@ public class Points {
         return points;
     }
 
-    public static void addPoints(String id, int points){
+    public static void addPoints(String id, int points, String reason){
+        try {
+            Connection con = Connect.getConnection();
 
+            PreparedStatement posted = con.prepareStatement("UPDATE user SET points = '" + points + "' WHERE discord_id = '" + id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO points (discord_id, type, points, grund) VALUES ('"+ id + "', 1 , '"+ points +"', '"+ reason +"')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void removePoints(String id, int points){
+    public static void removePoints(String id, int points, String reason){
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("UPDATE user SET points = '" + points + "' WHERE discord_id = '" + id + "'");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Connection con = Connect.getConnection();
+
+            PreparedStatement posted = con.prepareStatement("INSERT INTO points (discord_id, type, points, grund) VALUES ('"+ id + "', 0 , '"+ points +"', '"+ reason +"')");
+
+            posted.executeUpdate();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -61,7 +61,7 @@ public class Points {
                         int oldPoints = team.sensivity.teamsensivityapi.mysql.Points.getPoints(userPoints.getDiscordID());
                         int points = userPoints.getPoints() + oldPoints;
 
-                        team.sensivity.teamsensivityapi.mysql.Points.addPoints(userPoints.getDiscordID(), userPoints.getPoints());
+                        team.sensivity.teamsensivityapi.mysql.Points.addPoints(userPoints.getDiscordID(), userPoints.getPoints(), userPoints.getReason());
                         return "{\"discord_id\": \"" + userPoints.getDiscordID() + "\", \"discord_username\": \"" + username + "\", \"new_points\": \"" + points + "\", \"old_points\": \"" + oldPoints + "\"}";
 
                     } else if (user.getRole().equals("DEV")) {
@@ -99,7 +99,7 @@ public class Points {
                         int oldPoints = team.sensivity.teamsensivityapi.mysql.Points.getPoints(userPoints.getDiscordID());
                         int points = oldPoints - userPoints.getPoints();
 
-                        team.sensivity.teamsensivityapi.mysql.Points.removePoints(userPoints.getDiscordID(), userPoints.getPoints());
+                        team.sensivity.teamsensivityapi.mysql.Points.removePoints(userPoints.getDiscordID(), userPoints.getPoints(), userPoints.getReason());
                         return "{\"discord_id\": \"" + userPoints.getDiscordID() + "\", \"discord_username\": \"" + username + "\", \"new_points\": \"" + points + "\", \"old_points\": \"" + oldPoints + "\"}";
 
                     } else if (user.getRole().equals("DEV")) {

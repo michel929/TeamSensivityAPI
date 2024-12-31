@@ -4,10 +4,12 @@ public class UserPoints {
 
     private int points;
     private String discordID;
+    private String reason;
 
-    public UserPoints(String discordID, int points){
+    public UserPoints(String discordID, int points, String reason){
         this.discordID = discordID;
         this.points = points;
+        this.reason = reason;
     }
 
     public int getPoints() {
@@ -24,5 +26,13 @@ public class UserPoints {
 
     public void setDiscordID(String discordID) {
         this.discordID = discordID;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
