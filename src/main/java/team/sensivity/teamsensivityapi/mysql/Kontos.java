@@ -23,7 +23,7 @@ public class Kontos {
 
                 ArrayList<String> users = getKontoUser(rs.getInt("id"));
 
-                Konto konto = new Konto(rs.getInt("id"), rs.getString("name"), rs.getInt("amount"), date, users);
+                Konto konto = new Konto(rs.getInt("id"), rs.getString("name"), rs.getInt("amount"), rs.getString("iban"), date, users);
 
                 sus.add(konto);
             }
@@ -33,6 +33,32 @@ public class Kontos {
         }
 
         return sus;
+    }
+
+    public static Konto getKonto(int id){
+        Konto konto = null;
+
+        try {
+            Connection con = Connect.getConnection();
+            String sql = "SELECT * FROM kontos WHERE id = '" + id + "'";
+            Statement stmt  = con.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                LocalDate date = LocalDate.parse(rs.getString("abgerechnet"));
+                date = date.plusMonths(1);
+
+                ArrayList<String> users = getKontoUser(id);
+
+                konto = new Konto(id, rs.getString("name"), rs.getInt("amount"), rs.getString("iban"), date, users);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return konto;
     }
 
 
